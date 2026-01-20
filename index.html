@@ -3,199 +3,172 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>POLICIA MUNICIPAL DE TRANSITO — MULTAS</title>
-
-<!-- XLSX -->
-<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<title>PMT - Chimaltenango | Consulta de Multas</title>
 
 <style>
-body {
-  margin: 0;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  color: #eee;
-  background: radial-gradient(circle at 20% 0%, rgba(0,255,255,0.2), transparent 50%),
-              radial-gradient(circle at 80% 0%, rgba(255,0,255,0.18), transparent 55%),
-              #05010a;
-  background-attachment: fixed;
+body{
+  margin:0;padding:20px;font-family:Arial,sans-serif;color:#eee;
+  background:radial-gradient(circle at 20% 0%, rgba(0,255,255,.2), transparent 50%),
+             radial-gradient(circle at 80% 0%, rgba(255,0,255,.18), transparent 55%),
+             #05010a;
 }
-
-.contenedor {
-  max-width: 1200px;
-  margin: 0 auto;
-  background: rgba(0, 0, 0, 0.82);
-  border-radius: 18px;
-  padding: 20px;
-  box-shadow: 0 0 18px rgba(0,255,255,0.5);
-  border: 1px solid rgba(0,255,255,0.35);
+.contenedor{
+  max-width:1200px;margin:auto;background:rgba(0,0,0,.82);
+  border-radius:18px;padding:20px;
+  box-shadow:0 0 18px rgba(0,255,255,.5);
 }
-
-.header-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  margin-bottom: 15px;
+.header-top{display:flex;align-items:center;justify-content:space-between;gap:15px}
+.titulos{text-align:center;flex:1}
+.t1{font-size:20px;color:#00ffc8;font-weight:bold}
+.t2{color:#ffdf5e}
+.t3{color:#a5ffe5;font-size:14px}
+.t4{color:#ccc;font-size:13px}
+.botones{text-align:center;margin:10px 0}
+.botones button{
+  margin:0 6px;padding:8px 18px;border-radius:999px;border:none;
+  background:linear-gradient(90deg,#00ffff,#5f00ff);
+  font-weight:bold;cursor:pointer
 }
-
-.logo-box img {
-  max-width: 110px;
+#estado{text-align:center;color:#aaa;margin:10px 0}
+.buscador{display:flex;gap:10px;justify-content:center;margin-bottom:10px}
+.buscador input{
+  padding:10px;border-radius:999px;border:1px solid #00ffc8;
+  background:#050513;color:#00ffc8
 }
-
-.titulos {
-  flex: 1;
-  text-align: center;
+.buscador button{
+  padding:10px 22px;border-radius:999px;border:none;
+  background:#00ffc8;font-weight:bold;cursor:pointer
 }
-
-.titulos-linea1 {
-  font-size: 20px;
-  font-weight: bold;
-  color: #00ffc8;
-}
-
-.titulos-linea2 { font-size: 15px; color: #ffdf5e; }
-.titulos-linea3 { font-size: 14px; color: #a5ffe5; }
-.titulos-linea4 { font-size: 13px; color: #ccc; }
-
-.botones-top {
-  text-align:center;
-  margin: 10px 0;
-}
-
-.botones-top button {
-  margin: 4px;
-  padding: 8px 20px;
-  border-radius: 999px;
-  border: none;
-  background: radial-gradient(circle at 30% 0, #00ffff, #5f00ff);
-  color: #000;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-#estado {
-  text-align:center;
-  margin: 10px 0;
-  color:#aaa;
-}
-
-.buscador {
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin-bottom:10px;
-}
-
-.buscador input {
-  padding:10px;
-  border-radius:999px;
-  border:1px solid #00ffc8;
-  background:#050513;
-  color:#00ffc8;
-}
-
-.buscador button {
-  padding:10px 22px;
-  border-radius:999px;
-  border:none;
-  background:#00ffc8;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.nota {
-  text-align:center;
-  font-size:12px;
-  color:#bbb;
-}
-
-table {
-  width:100%;
-  border-collapse:collapse;
-  margin-top:10px;
-}
-
-th, td {
-  border:1px solid #333;
-  padding:6px;
-  font-size:13px;
-}
-
-th {
-  background:#00ffc8;
-  color:#000;
-}
-
-.footer-info {
-  margin-top:15px;
-  text-align:center;
-  font-size:12px;
-  color:#66ffe6;
-}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{border:1px solid #333;padding:6px;font-size:12px}
+th{background:#00ffc8;color:#000}
+.similares-box{margin-top:10px;display:flex;gap:10px;align-items:center}
+.similares-box select{flex:1;padding:6px;border-radius:999px}
+.footer{text-align:center;margin-top:15px;color:#66ffe6;font-size:12px}
 </style>
 </head>
 
 <body>
-
 <div class="contenedor">
 
-  <div class="header-top">
-    <div class="logo-box">
-      <img src="icons/logo.png" alt="MUNI">
-    </div>
-
-    <div class="titulos">
-      <div class="titulos-linea1">PMT DE - CHIMALTENANGO</div>
-      <div class="titulos-linea2">CHIMALTENANGO</div>
-      <div class="titulos-linea3">Sistema CONSULTA DE MULTAS - 2026 ? == BY GELM == ?</div>
-      <div class="titulos-linea4">SISTEMA DE REGISTRO INTERNO DE MULTAS PMT- BY GELM</div>
-    </div>
-
-    <div class="logo-box">
-      <img src="icons/icon-512.png" alt="GELM">
-    </div>
+<div class="header-top">
+  <div class="titulos">
+    <div class="t1">PMT DE - CHIMALTENANGO</div>
+    <div class="t2">CHIMALTENANGO</div>
+    <div class="t3">Sistema Consulta de Multas — BY GELM</div>
+    <div class="t4">Registro interno PMT</div>
   </div>
+</div>
 
-  <div class="botones-top">
-    <button onclick="window.open('https://docs.google.com/spreadsheets/d/16gzaOxMSPcAQQPYx-nyM9-nRidyhheeXjodbdQH6LV4/edit?gid=103960205','_blank')">MULTAS</button>
-    <button onclick="window.open('https://docs.google.com/document/d/1koU-_N3CYCaws8GgiKuTS1EzCFWaDPXfTv6WlEobwZM/edit','_blank')">OFICIOS</button>
-    <button onclick="window.open('https://docs.google.com/spreadsheets/d/14_cUOa7N0o6xc0iEgHpx9sJY_IZVzcpU5XVNDSmrWEg/edit?gid=188079205','_blank')">FORMULARIO</button>
-  </div>
+<div class="botones">
+  <button onclick="window.open('https://docs.google.com/spreadsheets/d/16gzaOxMSPcAQQPYx-nyM9-nRidyhheeXjodbdQH6LV4/edit?gid=103960205#gid=103960205')">MULTAS</button>
+  <button onclick="window.open('https://docs.google.com/document/d/1koU-_N3CYCaws8GgiKuTS1EzCFWaDPXfTv6WlEobwZM/edit')">OFICIOS</button>
+  <button onclick="window.open('https://docs.google.com/spreadsheets/d/14_cUOa7N0o6xc0iEgHpx9sJY_IZVzcpU5XVNDSmrWEg/edit?gid=188079205#gid=188079205')">FORMULARIO</button>
+</div>
 
-  <div id="estado">Cargando datos…</div>
+<div id="estado">Cargando datos...</div>
 
-  <div class="buscador">
-    <input id="busquedaInput" placeholder="Placa, boleta, licencia o chapa…">
-    <button onclick="buscar()">Buscar</button>
-  </div>
+<div class="buscador">
+  <input id="busquedaInput" placeholder="Placa, boleta, licencia, chapa...">
+  <button onclick="buscar()">Buscar</button>
+</div>
 
-  <p class="nota">
-    Puedes escribir con o sin espacios / guiones.
-  </p>
+<div id="resultado-principal"></div>
+<div id="similares-contenedor"></div>
 
-  <div id="resultado">
-    <div id="resultado-principal"></div>
-    <div id="similares-contenedor"></div>
-  </div>
-
-  <div class="footer-info">
-    2014 - 2025 | <strong>BY GELM</strong> | Delegación de Transportes PMT - Chimaltenango<br>
-    <span id="fechaHora"></span>
-  </div>
+<div class="footer" id="fechaHora"></div>
 
 </div>
 
-<script src="app.js"></script>
-
 <script>
-setInterval(() => {
-  const f = new Date();
-  document.getElementById("fechaHora").textContent =
-    f.toLocaleDateString("es-ES",{weekday:"long",year:"numeric",month:"long",day:"numeric"}) +
-    " — " + f.toLocaleTimeString("es-ES");
-}, 1000);
-</script>
+const DATA_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ5YUmfoizOZkx1RaK1f2wq2WP_RvNdbaLsuwtPtuBtd-CQHjNKDtunQgmp6d9J6nE-xm4IAazZJHaN/pub?gid=103960205&single=true&output=csv";
 
+let registros=[],similares=[],ultimoFiltro="";
+
+document.addEventListener("DOMContentLoaded", cargarCSV);
+
+async function cargarCSV(){
+  const r = await fetch(DATA_URL);
+  const t = await r.text();
+  const l = t.split("\n").map(x=>x.split(","));
+  const h = l.shift();
+  registros = l.map(f=>{
+    let o={};h.forEach((k,i)=>o[k.trim().toLowerCase()]=f[i]);return o;
+  });
+  document.getElementById("estado").textContent =
+    "Archivo cargado. Registros: "+registros.length;
+}
+
+function normalizar(t){
+  if(!t) return "";
+  return String(t).replace(/\s+/g,"").replace(/-/g,"").toUpperCase();
+}
+
+function esc(s){
+  return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;");
+}
+
+function construirTabla(r){
+  return `<table><tr>
+<th>SERIE</th><th>BOLETA</th><th>FECHA</th><th>HORA</th>
+<th>PLACA</th><th>TIPO</th><th>MARCA</th><th>COLOR</th>
+<th>DIRECCIÓN</th><th>DEPTO</th><th>MUNI</th><th>CONDUCTOR</th>
+<th>LIC</th><th>No. LIC</th><th>ARTÍCULO</th><th>DESCRIPCIÓN</th><th>CHAPA</th>
+</tr><tr>
+<td>${esc(r.serie)}</td><td>${esc(r["no. boleta"])}</td>
+<td>${esc(r.fecha)}</td><td>${esc(r.hora)}</td>
+<td>${esc(r.placas)}</td><td>${esc(r.tipo)}</td>
+<td>${esc(r.marca)}</td><td>${esc(r.color)}</td>
+<td>${esc(r.direccion)}</td><td>${esc(r.departamento)}</td>
+<td>${esc(r.municipio)}</td><td>${esc(r["nombre del conductor"])}</td>
+<td>${esc(r.lic)}</td><td>${esc(r["no. licencia"])}</td>
+<td>${esc(r.articulo)}</td><td>${esc(r.descripcion)}</td>
+<td>${esc(r.chapa)}</td>
+</tr></table>`;
+}
+
+function buscar(){
+  const t=document.getElementById("busquedaInput").value.trim();
+  if(!t) return;
+  const q=normalizar(t);
+  const p=document.getElementById("resultado-principal");
+  const s=document.getElementById("similares-contenedor");
+  p.innerHTML="";s.innerHTML="";similares=[];
+  const c=[];
+  registros.forEach(r=>{
+    let x=0;
+    if(normalizar(r.chapa)===q) x=110;
+    if(normalizar(r.placas)===q) x=100;
+    if(normalizar(r["no. licencia"])===q) x=90;
+    if(normalizar(r["no. boleta"])===q) x=80;
+    if(normalizar(r.descripcion).includes(q)) x=60;
+    if(x>0) c.push({r,x});
+  });
+  if(!c.length){p.innerHTML="No encontrado";return;}
+  c.sort((a,b)=>b.x-a.x);
+  p.innerHTML=construirTabla(c[0].r);
+  const o=c.slice(1).map(z=>z.r);
+  if(o.length){
+    similares=o;
+    let ops="<option value=''>-- seleccionar --</option>";
+    o.forEach((r,i)=>{
+      ops+=`<option value="${i}">Placa ${r.placas||""} · Chapa ${r.chapa||""}</option>`;
+    });
+    s.innerHTML=`<div class="similares-box">SIMILARES:
+      <select onchange="mostrarSimilar(this.value)">${ops}</select></div>`;
+  }
+}
+
+function mostrarSimilar(i){
+  if(i===""||isNaN(i))return;
+  document.getElementById("resultado-principal").innerHTML=
+    construirTabla(similares[i]);
+}
+
+setInterval(()=>{
+  document.getElementById("fechaHora").textContent =
+    new Date().toLocaleString("es-GT");
+},1000);
+</script>
 </body>
 </html>
-
