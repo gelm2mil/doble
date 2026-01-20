@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUNICIPALIDAD DE CHIMALTENANGO — MULTAS 2025</title>
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- XLSX para exportar Excel -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+    <style>
+        .accesos-rapidos{
+            margin-top: 10px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .accesos-rapidos a{
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: 1px solid #00ffc8;
+            text-decoration: none;
+            color: #00ffc8;
+            font-size: 12px;
+            font-weight: bold;
+            background: rgba(0,0,0,.6);
+            box-shadow: 0 0 10px rgba(0,255,255,.6);
+            transition: .2s;
+        }
+        .accesos-rapidos a:hover{
+            background: radial-gradient(circle at 30% 0, #00ffff, #5f00ff);
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+<div class="contenedor">
+
+    <!-- ========== HEADER ========== -->
+    <div class="header-top">
+
+        <!-- ICONO MUNICIPALIDAD -->
+        <div class="logo-box">
+            <img src="icons/logo.png" alt="MUNI">
+
+            <!-- BOTONES RÁPIDOS -->
+            <div class="accesos-rapidos">
+                <a href="https://docs.google.com/spreadsheets/d/16gzaOxMSPcAQQPYx-nyM9-nRidyhheeXjodbdQH6LV4/edit?gid=103960205#gid=103960205" target="_blank">MULTAS</a>
+                <a href="https://docs.google.com/document/d/1koU-_N3CYCaws8GgiKuTS1EzCFWaDPXfTv6WlEobwZM/edit?pli=1&tab=t.0" target="_blank">OFICIOS</a>
+                <a href="https://docs.google.com/spreadsheets/d/14_cUOa7N0o6xc0iEgHpx9sJY_IZVzcpU5XVNDSmrWEg/edit?gid=188079205#gid=188079205" target="_blank">FORMULARIO</a>
+            </div>
+        </div>
+
+        <!-- TITULOS -->
+        <div class="titulos">
+            <div class="titulos-linea1">MUNICIPALIDAD DE - CHIMALTENANGO</div>
+            <div class="titulos-linea2">CHIMALTENANGO</div>
+            <div class="titulos-linea3">Sistema CONSULTA DE MULTAS - 2025 ? == BY GELM == ?</div>
+            <div class="titulos-linea4">puedes verificar si tienes multas pendientes de pago</div>
+        </div>
+
+        <!-- ICONO GELM (DESCARGA EXCEL VERSION PRO) -->
+        <div class="logo-box" style="cursor:pointer;" onclick="exportarExcelPRO()">
+            <img src="icons/icon-512.png" alt="GELM">
+        </div>
+
+    </div>
+
+    <!-- ESTADO DE CARGA -->
+    <div id="estado">Cargando archivo JSON...</div>
+
+    <!-- ========== BUSCADOR ========== -->
+    <div class="buscador">
+        <input id="busquedaInput" type="text"
+               placeholder="Placa, DPI, No. licencia, documento o No. calcomanía...">
+        <button onclick="buscar()">Buscar</button>
+    </div>
+
+    <!-- NOTA -->
+    <p class="nota">
+        Puedes escribir con o sin espacios / guiones. Ej:<br>
+        <b>1856 12258 0413</b> ó <b>1856122580413</b> &nbsp; | &nbsp;
+        <b>1056-12250413</b> ó <b>105612250413</b> &nbsp; | &nbsp;
+        <b>40</b> (No. calcomanía)
+    </p>
+
+    <!-- ========== RESULTADOS ========== -->
+    <div id="resultado">
+        <div id="resultado-principal"></div>
+        <div id="similares-contenedor"></div>
+    </div>
+
+    <!-- BOTÓN CONTACTO -->
+    <div class="contacto-wrapper">
+        <button class="btn-contacto" onclick="window.location.href='mailto:nerox2mil@proton.me'">
+            <span class="icono">✦</span>
+            <span>Más información / Contactar a GELM</span>
+        </button>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer-info">
+        <div>2014 - 2025 | <strong>BY GELM</strong> | Delegación de Transportes PMT - Chimaltenango<br>
+        att: ---[GELM]---</div>
+        <div id="fechaHora"></div>
+    </div>
+
+</div>
+
+<!-- APP.JS -->
+<script src="app.js"></script>
+
+<script>
+setInterval(() => {
+    const f = new Date();
+    document.getElementById("fechaHora").textContent =
+        f.toLocaleDateString("es-ES", { weekday:"long", year:"numeric", month:"long", day:"numeric" }) +
+        " — " + f.toLocaleTimeString("es-ES");
+}, 1000);
+</script>
+
+<script>
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+
+</body>
+</html>
