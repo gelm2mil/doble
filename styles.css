@@ -1,0 +1,227 @@
+:root{
+  --neon:#00ffc8;
+  --bg1:#020b12;
+  --bg2:#2b0033;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  min-height:100vh;
+  padding:20px;
+  color:#eaffff;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(0,255,255,.2), transparent 50%),
+    radial-gradient(circle at 80% 0%, rgba(255,0,255,.18), transparent 55%),
+    linear-gradient(135deg,var(--bg1),var(--bg2));
+  background-attachment:fixed;
+  animation:fondoGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes fondoGlow{
+  0%{box-shadow:inset 0 0 20px #ff00ff;}
+  50%{box-shadow:inset 0 0 80px #00ffff;}
+  100%{box-shadow:inset 0 0 120px #ff00ff;}
+}
+
+.contenedor{
+  max-width:1200px;
+  margin:auto;
+  background:rgba(0,0,0,.82);
+  border-radius:18px;
+  padding:22px;
+  border:1px solid rgba(0,255,200,.35);
+  box-shadow:
+    0 0 18px rgba(0,255,255,.45),
+    0 0 50px rgba(0,0,0,1);
+}
+
+/* HEADER */
+.header-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:10px;
+}
+
+.logo-box{
+  padding:6px;
+  border-radius:14px;
+  background:radial-gradient(circle at 30% 0, rgba(0,255,120,.3), rgba(0,255,255,.05));
+  box-shadow:
+    0 0 10px rgba(0,255,120,.9),
+    0 0 25px rgba(0,0,0,.9);
+  border:1px solid rgba(0,255,180,.9);
+}
+
+.logo-box img{
+  display:block;
+  max-width:110px;
+  height:auto;
+}
+
+.titulos{
+  flex:1;
+  text-align:center;
+}
+
+.titulos-linea1{
+  font-size:20px;
+  font-weight:bold;
+  color:var(--neon);
+  text-shadow:0 0 10px #00ffff, 0 0 25px #0044ff;
+  letter-spacing:1px;
+}
+.titulos-linea2{font-size:15px;color:#ffdf5e;}
+.titulos-linea3{font-size:14px;color:#a5ffe5;}
+.titulos-linea4{font-size:13px;color:#ccc;}
+
+/* BOTONES SUPERIORES */
+.top-actions{
+  text-align:center;
+  margin:10px 0 14px;
+}
+
+.btn-top{
+  margin:6px;
+  padding:10px 24px;
+  border-radius:999px;
+  border:none;
+  cursor:pointer;
+  font-weight:bold;
+  color:#000;
+  background:radial-gradient(circle at 30% 0,#00ffff,#5f00ff);
+  box-shadow:0 0 14px rgba(0,255,255,.9);
+  transition:transform .15s ease, filter .15s ease;
+}
+.btn-top:hover{
+  transform:translateY(-1px);
+  filter:brightness(1.1);
+}
+
+/* ESTADO */
+.estado{
+  text-align:center;
+  color:#a8ffe8;
+  font-size:13px;
+  margin-bottom:10px;
+}
+
+/* BUSCADOR */
+.buscador{
+  max-width:720px;
+  margin:0 auto 12px;
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.buscador input{
+  flex:1;
+  min-width:240px;
+  padding:12px 18px;
+  border-radius:999px;
+  border:1px solid var(--neon);
+  background:#050513;
+  color:var(--neon);
+  font-size:16px;
+  outline:none;
+  box-shadow:0 0 12px rgba(0,255,255,.5);
+}
+
+.buscador input::placeholder{color:#66ffe6;}
+
+.buscador button{
+  padding:12px 26px;
+  border-radius:999px;
+  border:none;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:bold;
+  color:#000;
+  background:radial-gradient(circle at 30% 0,#00ffff,#5f00ff);
+  text-shadow:0 0 4px #00ffea;
+  box-shadow:
+    0 0 12px rgba(0,255,255,.8),
+    0 0 26px rgba(0,0,0,.9);
+}
+
+.nota{
+  text-align:center;
+  font-size:12px;
+  color:#bbb;
+  margin-bottom:6px;
+}
+
+/* RESULTADOS */
+#resultado{max-width:100%;overflow-x:auto;}
+
+table{
+  border-collapse:collapse;
+  width:100%;
+  margin-top:10px;
+  background:#141414;
+}
+
+th,td{
+  border:1px solid #333;
+  padding:6px 8px;
+  font-size:12px;
+  text-align:left;
+}
+
+th{
+  background:var(--neon);
+  color:#000;
+}
+
+tr:nth-child(even) td{background:#101010;}
+
+/* SIMILARES */
+.similares-box{
+  margin-top:10px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:12px;
+  color:#a8ffe8;
+}
+
+.similares-box select{
+  background:#020b40;
+  color:#fff;
+  border-radius:999px;
+  border:1px solid var(--neon);
+  padding:6px 12px;
+  min-width:260px;
+}
+
+/* FOOTER */
+.footer-info{
+  margin-top:18px;
+  text-align:center;
+  font-size:12px;
+  color:#4ee8ff;
+  text-shadow:0 0 8px #00fff2;
+}
+.footer-info strong{color:#7bffb2;}
+
+@media(max-width:768px){
+  .header-top{flex-direction:column;}
+  .logo-box img{max-width:95px;}
+  .titulos-linea1{font-size:18px;}
+  .titulos-linea2{font-size:14px;}
+  .titulos-linea3,.titulos-linea4{font-size:12px;}
+}
+
+@media(max-width:480px){
+  .buscador{flex-direction:column;}
+  .buscador button{width:100%;max-width:260px;}
+}
